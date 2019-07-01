@@ -49,7 +49,7 @@ public:
 	};
 
 	//-------------------------------------------------------------------------
-	template<typename Trhs>
+	/*template<typename Trhs>
 	bool operator==(const Trhs& rhs) const {
 		return this->val_ == rhs;
 	};
@@ -72,6 +72,27 @@ public:
 	template<typename Trhs>
 	bool operator>=(const Trhs& rhs) const {
 		return this->val_ >= rhs;
+	};*/
+
+
+
+	bool operator==(const clamped_value& rhs) const {
+		return this->val_ == rhs.val_;
+	};
+	bool operator!=(const clamped_value& rhs) const {
+		return !(*this == rhs);
+	};
+	bool operator<(const clamped_value& rhs) const {
+		return this->val_ < rhs.val_;
+	};
+	bool operator>(const clamped_value& rhs) const {
+		return this->val_ > rhs.val_;
+	};
+	bool operator<=(const clamped_value& rhs) const {
+		return this->val_ <= rhs.val_;
+	};
+	bool operator>=(const clamped_value& rhs) const {
+		return this->val_ >= rhs.val_;
 	};
 
 	clamped_value operator+(const clamped_value& rhs) const {
@@ -107,7 +128,7 @@ public:
 		return clamped_value(temp);
 	};
 private:
-	// Note that were this to be left unitialized, the invariant would 
+	// Note that were this to be left unitialized, the invariant could 
 	// be broken.  
 	value_type val_ {VMin};  
 };
@@ -120,9 +141,10 @@ std::ostream& operator<<(std::ostream& os, const clamped_value<T,VMin,VMax>& cv)
 
 
 // Tests, demos
-void f1();
-void f2();
-void f3();
+void static_casts_1();
+void ctors_1();
+void plus_minus_equals_1();
+void compare_unlike_1();
 
 }  // namespace nttl
 

@@ -2,8 +2,8 @@
 #include <iostream>
 
 
-// Static_casts
-void nttl::f1() {
+// static_casts
+void nttl::static_casts_1() {
 	nttl::clamped_value<int32_t,0,32767> cv1;
 	nttl::clamped_value<int32_t,0,32767> cv2;
 	nttl::clamped_value<int32_t,0,32767> cv3;
@@ -23,7 +23,7 @@ void nttl::f1() {
 }
 
 // Ctors
-void nttl::f2() {
+void nttl::ctors_1() {
 	int i0 = 0;
 	int i5 = 5;
 	int i32767 = 32767;
@@ -40,7 +40,7 @@ void nttl::f2() {
 
 }
 
-void nttl::f3() {
+void nttl::plus_minus_equals_1() {
 	int i0 = 0;
 	int i5 = 5;
 	nttl::clamped_value<int32_t,0,32767> cv1(i0);
@@ -58,5 +58,16 @@ void nttl::f3() {
 	std::cout << ex1 << std::endl;
 }
 
+void nttl::compare_unlike_1() {
+	int i0 = 0;
+	int i5 = 5;
+	nttl::clamped_value<int32_t,0,32767> cv1(i0);
+	nttl::clamped_value<int32_t,0,32767> cv2(i5);
 
-
+	//int64_t i64_a = 7;
+	//bool b1 = (cv1 == i64_a);
+	//bool b2 = (i64_a == cv1);
+	//int32_t i32_a = 7;
+	//bool b3 = (cv1 == i32_a);
+	//bool b4 = (i32_a == cv1);
+}

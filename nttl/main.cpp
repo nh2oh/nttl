@@ -3,7 +3,7 @@
 
 
 int main() {
-	nttl::f3();
+	nttl::plus_minus_equals_1();
 	std::cout << "yay" << std::endl;
 
 	return 0;
