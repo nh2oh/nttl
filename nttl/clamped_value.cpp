@@ -1,6 +1,6 @@
 #include "clamped_value.h"
 #include <iostream>
-
+#include <cstdint>
 
 // static_casts
 void nttl::static_casts_1() {
@@ -36,7 +36,7 @@ void nttl::ctors_1() {
 	nttl::clamped_value<int32_t,0,32767> cv3(i32767);
 	
 	int64_t i64sc = static_cast<int64_t>(cv3);
-	int64_t i64imp = cv3;
+	// int64_t i64imp = cv3;
 
 }
 

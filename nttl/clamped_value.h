@@ -5,7 +5,7 @@
 namespace nttl {
 
 //
-// A numeric T clamped on [VMin,VMax] w/ implicit conversion to
+// A numeric T clamped on [VMin,VMax] w/ explicit conversion to
 // wider numeric types.  
 //
 template<typename T, T VMin, T VMax>
@@ -44,7 +44,7 @@ public:
 			&& (std::numeric_limits<To>::min()<=VMin)
 			&& (std::numeric_limits<To>::max()>=VMax))>::type
 	>
-	operator To() const {
+	explicit operator To() const {
 		return static_cast<To>(this->val_);
 	};
 
