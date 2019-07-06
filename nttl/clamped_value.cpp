@@ -2,6 +2,35 @@
 #include <iostream>
 #include <cstdint>
 
+
+void inst_can_construct() {
+	int yay = 5;
+	{
+	const int max = 325487;
+	const int min = 0;
+	nttl::clamped_value<int,min,max> cv;
+	//nttl::clamped_value<int,min,max>::trv_ct_frm<uint8_t> can_ctr_from_uint8;
+	//auto constexpr bui8 = nttl::clamped_value<int,min,max>::trv_ct_frm<uint8_t>::value;
+	//nttl::clamped_value<int,min,max>::trv_ct_frm<int8_t> can_ctr_from_int8;
+	//auto constexpr bi8 = nttl::clamped_value<int,min,max>::trv_ct_frm<int8_t>::value;
+	//std::cout << bi8;
+	}
+
+	{
+	const int max = 325487;
+	const int min = -259;
+	nttl::clamped_value<int,min,max> cv;
+	//nttl::clamped_value<int,min,max>::trv_ct_frm<uint8_t> can_ctr_from_uint8;
+	//auto constexpr bui8 = nttl::clamped_value<int,min,max>::trv_ct_frm<uint8_t>::value;
+	//nttl::clamped_value<int,min,max>::trv_ct_frm<int8_t> can_ctr_from_int8;
+	//auto constexpr bi8 = nttl::clamped_value<int,min,max>::trv_ct_frm<int8_t>::value;
+	//nttl::clamped_value<int,min,max>::trv_ct_frm<int16_t> can_ctr_from_int16;
+	//auto constexpr bi16 = nttl::clamped_value<int,min,max>::trv_ct_frm<int16_t>::value;
+	//std::cout << bi16;
+	}
+}
+
+
 // static_casts
 void nttl::static_casts_1() {
 	nttl::clamped_value<int32_t,0,32767> cv1;

@@ -3,7 +3,8 @@
 
 
 int main() {
-	nttl::plus_minus_equals_1();
+	nttl::static_casts_1();
+	//nttl::plus_minus_equals_1();
 	std::cout << "yay" << std::endl;
 
 	return 0;

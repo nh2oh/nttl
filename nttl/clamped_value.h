@@ -1,6 +1,7 @@
 #pragma once
 #include <limits>
 #include <iostream>
+#include <cstdint>
 
 namespace nttl {
 
@@ -19,16 +20,33 @@ public:
 	static const T min_val = VMin;
 	static const T max_val = VMax;
 
+	template <typename From>
+	static constexpr bool can_safely_construct_from() {
+		return (std::is_convertible<From,value_type>::value
+			&& (std::numeric_limits<From>::min()>=VMin)
+			&& (std::numeric_limits<From>::max()<=VMax));
+	};
+	template <typename To>
+	static constexpr bool can_safely_convert_to() {
+		return (std::is_convertible<value_type,To>::value
+			&& (std::numeric_limits<To>::min()<=VMin)
+			&& (std::numeric_limits<To>::max()>=VMax));
+	};
+
 	explicit clamped_value()=default;
 
-	template<typename From>
-	explicit clamped_value(const From& val_in) {
-		if (val_in < VMin) {
-			this->val_=VMin;
-		} else if (val_in > VMax) {
-			this->val_= VMax;
+	template <typename From>
+	constexpr explicit clamped_value(const From& val) {
+		if (can_safely_construct_from<From>()) {
+			this->val_= static_cast<value_type>(val);
 		} else {
-			this->val_= static_cast<T>(val_in);
+			if (val < VMin) {
+				this->val_= VMin;
+			} else if (val > VMax) {
+				this->val_= VMax;
+			} else {
+				this->val_= static_cast<T>(val);
+			}
 		}
 	};
 
@@ -36,44 +54,18 @@ public:
 		return this->val_;
 	};
 
-	// Silent conversion to types capable of holding the full range of
-	// allowed values.
+	// Explicit conversion only to types capable of holding the full range
+	// of allowed values.
 	template<typename To, 
-		typename = std::enable_if<
-			(std::is_convertible<value_type,To>::value
-			&& (std::numeric_limits<To>::min()<=VMin)
-			&& (std::numeric_limits<To>::max()>=VMax))>::type
+		typename Dummy = typename std::enable_if<clamped_value::can_safely_convert_to<To>(),bool>::type
 	>
-	explicit operator To() const {
+	explicit constexpr operator To() const {
 		return static_cast<To>(this->val_);
 	};
-
-	//-------------------------------------------------------------------------
-	/*template<typename Trhs>
-	bool operator==(const Trhs& rhs) const {
-		return this->val_ == rhs;
+	// Implicit conversion to value_type
+	constexpr operator value_type() const {
+		return this->val_;
 	};
-	template<typename Trhs>
-	bool operator!=(const Trhs& rhs) const {
-		return !(*this == rhs);
-	};
-	template<typename Trhs>
-	bool operator<(const Trhs& rhs) const {
-		return this->val_ < rhs;
-	};
-	template<typename Trhs>
-	bool operator>(const Trhs& rhs) const {
-		return this->val_ > rhs;
-	};
-	template<typename Trhs>
-	bool operator<=(const Trhs& rhs) const {
-		return this->val_ <= rhs;
-	};
-	template<typename Trhs>
-	bool operator>=(const Trhs& rhs) const {
-		return this->val_ >= rhs;
-	};*/
-
 
 
 	bool operator==(const clamped_value& rhs) const {
@@ -141,6 +133,7 @@ std::ostream& operator<<(std::ostream& os, const clamped_value<T,VMin,VMax>& cv)
 
 
 // Tests, demos
+void inst_can_construct();
 void static_casts_1();
 void ctors_1();
 void plus_minus_equals_1();
