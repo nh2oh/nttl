@@ -5,6 +5,39 @@
 
 namespace nttl {
 
+template <typename T>
+T plus_unsigned(T lhs, T rhs) {
+	if ((std::numeric_limits<T>::max()-lhs)>rhs) {
+		return lhs+rhs;
+	} 
+	return std::numeric_limits<T>::max();
+};
+template <typename T>
+T minus_unsigned(T lhs, T rhs) {  // lhs-rhs
+	if (rhs>lhs) {
+		return 0;
+	} 
+	return 0;
+};
+template <typename T>
+T plus_signed(T lhs, T rhs) {
+	if ((lhs>T(0)) && (rhs>T(0))) {
+		if ((std::numeric_limits<T>::max()-lhs)>rhs) {
+			return lhs+rhs;
+		} 
+		return std::numeric_limits<T>::max();
+	} else if ((lhs>=T(0)) && (rhs<T(0))) {
+		return lhs+rhs;
+	} else if ((lhs<T(0)) && (rhs<T(0)) {
+		//...
+	}
+
+	}
+	
+
+};
+
+
 //
 // A numeric T clamped on [VMin,VMax] w/ explicit conversion to
 // wider numeric types.  

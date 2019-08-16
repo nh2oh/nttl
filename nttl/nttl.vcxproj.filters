@@ -21,9 +21,15 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="type_utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clamped_value.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="type_utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
